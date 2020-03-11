@@ -165,7 +165,7 @@ def plot_available_youbike_numbers(
         end_date = str(end_date).split(' ')[0]
 
         draw_line_plot_by_column(
-            make_dataset.resample_df(df, freq=freq),
+            resample_df(df, freq=freq),
             columns=columns,
             font_prop=font_prop, 
             date_range_start=start_date,
