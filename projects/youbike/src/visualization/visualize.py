@@ -30,7 +30,7 @@ def draw_line_plot_by_column(
         df = _df_date_range_selector(df, date_range_start, date_range_end)
     if columns:
         df = df[columns]
-    for column in df.columns:
+    for column in df.select_dtypes(include=['float64', 'int64']).columns:
         x = df.index
         y = df[column]
         # make sure no NaN in column
@@ -62,7 +62,7 @@ def draw_heatmap_by_column(
     if date_range_start or date_range_end:
         df = _df_date_range_selector(df, date_range_start, date_range_end)
     df = df.select_dtypes(include=['float64', 'int64'])
-    
+
     f = plt.figure(figsize=fig_size)
     plt.matshow(df.corr(), fignum=f.number)
     plt.xticks(range(df.shape[1]), df.columns, fontproperties=font_prop,
