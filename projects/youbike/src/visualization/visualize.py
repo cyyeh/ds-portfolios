@@ -147,6 +147,6 @@ def plot_available_youbike_numbers(
             font_prop=font_prop, 
             date_range_start=start_date,
             date_range_end=end_date,
-            allow_null=False
+            allow_null=False,
             hue=hue
         )
