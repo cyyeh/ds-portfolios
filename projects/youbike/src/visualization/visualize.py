@@ -38,7 +38,9 @@ def draw_line_plot_by_column(
         df = _df_date_range_selector(df, date_range_start, date_range_end)
     if columns:
         df = df[columns]
-    
+    if hue:
+        hue = df[hue]
+
     df = df.select_dtypes(include=['float64', 'int64'])
     for column in df.columns:
         x = df.index
@@ -51,7 +53,7 @@ def draw_line_plot_by_column(
             plt.title(column, fontproperties=font_prop,
                     fontsize=title_size, color=color)
             if hue:
-                sns.lineplot(x, y, hue=df[hue])
+                sns.lineplot(x, y, hue=hue)
             else:
                 sns.lineplot(x, y)
             plt.ylabel(column, color=color, fontsize=label_size, fontproperties=font_prop)
