@@ -54,6 +54,7 @@ def draw_line_plot_by_column(
                     fontsize=title_size, color=color)
             if hue:
                 sns.lineplot(x, y, hue=df_hue)
+                plt.legend(prop=font_prop)
             else:
                 sns.lineplot(x, y)
             plt.ylabel(column, color=color, fontsize=label_size, fontproperties=font_prop)
