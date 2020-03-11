@@ -18,7 +18,7 @@ def draw_line_plot_by_column(
     df, columns=None, font_prop='', color='white',
     label_size=14, title_size=16, fig_size=(12, 8),
     date_range_start=None, date_range_end=None,
-    allow_null=True, hue=None
+    allow_null=True, hue=None, grid=True
     ):
     '''
     df: dataframe
@@ -58,6 +58,8 @@ def draw_line_plot_by_column(
             else:
                 sns.lineplot(x, y)
             plt.ylabel(column, color=color, fontsize=label_size, fontproperties=font_prop)
+            if grid:
+                plt.grid()
             plt.show()
             print()
 
@@ -92,7 +94,8 @@ def draw_heatmap_by_column(
 
 def plot_youbike_mean_available_number(
     df, freq='realtime', color='white',
-    label_size=14, title_size=16, fig_size=(12, 8)):
+    label_size=14, title_size=16, fig_size=(12, 8),
+    grid=True):
     '''
     df: dataframe
     freq: dataframe resample frequency
@@ -123,12 +126,15 @@ def plot_youbike_mean_available_number(
     )
     plt.xticks(color=color, fontsize=label_size)
     plt.yticks(color=color, fontsize=label_size)
+    if grid:
+        plt.grid()
     plt.plot(x, y)
+
 
 def plot_available_youbike_numbers(
     df, start_date='1/1/2018', end_date='6/15/2018',
     days_per_period=7, freq=None, font_prop='',
-    hue=None
+    hue=None, grid=True
     ):
     '''
     df: dataframe
@@ -160,5 +166,6 @@ def plot_available_youbike_numbers(
             date_range_start=start_date,
             date_range_end=end_date,
             allow_null=False,
-            hue=hue
+            hue=hue,
+            grid=grid
         )
