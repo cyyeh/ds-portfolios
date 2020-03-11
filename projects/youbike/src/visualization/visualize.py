@@ -23,7 +23,7 @@ def draw_line_plot_by_column(
     title_size: title font size
     fig_size: matplotlib figure size
     date_range_start: start date included
-    date_range_end: end date included
+    date_range_end: end date excluded
     '''
     if date_range_start or date_range_end:
         df = _df_date_range_selector(df, date_range_start, date_range_end)
@@ -53,7 +53,7 @@ def draw_heatmap_by_column(
     label_size: label font size
     fig_size: matplotlib figure size
     date_range_start: start date included
-    date_range_end: end date included
+    date_range_end: end date excluded
     '''
     if date_range_start or date_range_end:
         df = _df_date_range_selector(df, date_range_start, date_range_end)
