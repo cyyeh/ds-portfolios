@@ -149,16 +149,16 @@ def get_youbike_history_data(stop_no=None):
     ]
 
     FIELDS_LIST = [
-        'stop_no',
-        'stop_name',
-        'total_number',
-        'current_number',
-        'stop_area',
-        'update_time',
-        'lat',
-        'lng',
-        'address',
-        'stop_area_en',
+        'stop_no', 
+        'stop_name', 
+        'total_number', 
+        'current_number', 
+        'stop_area', 
+        'update_time', 
+        'lat', 
+        'lng', 
+        'address', 
+        'stop_area_en', 
         'stop_name_en',
         'address_en',
         'vacancy_number',
@@ -186,12 +186,14 @@ def get_youbike_history_data(stop_no=None):
     df = pd.concat(map(read_csv_func, FILE_PATHS), sort=True)
     df = df[FIELDS_TO_KEEP]
     df['db_update_time'] = pd.to_datetime(df['db_update_time'])
-    df = df[df['status'] == 1]  # enabled
+    df = df[df['status'] == 1] # enabled
+    df['weekday'] = df['db_update_time'].dt.weekday
+    df['is_weekend'] = (df['weekday'] == 5) | (df['weekday'] == 6)
 
     if stop_no:
         df = (df[df['stop_no'] == stop_no]
-              .sort_values('db_update_time')
-              .set_index('db_update_time'))
+                .sort_values('db_update_time')
+                .set_index('db_update_time'))
     else:
         df = (df.groupby('stop_no')
                 .apply(pd.DataFrame.sort_values, 'db_update_time')
