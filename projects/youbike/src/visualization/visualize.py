@@ -50,7 +50,7 @@ def draw_line_plot_by_column(
           plt.yticks(color=color, fontsize=label_size)
           plt.title(column, fontproperties=font_prop,
                     fontsize=title_size, color=color)
-          sns.lineplot(x, y, hue=hue)
+          sns.lineplot(x, y, hue=hue, data=df)
           plt.ylabel(column, color=color, fontsize=label_size, fontproperties=font_prop)
           plt.show()
           print()
