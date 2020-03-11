@@ -64,9 +64,9 @@ def draw_heatmap_by_column(
 
     f = plt.figure(figsize=fig_size)
     plt.matshow(df.corr(), fignum=f.number)
-    plt.xticks(range(df.shape[1]), df.columns, fontproperties=font_prop,
+    plt.xticks(range(df.shape[1]), df.select_dtypes(include=['float64', 'int64']).columns, fontproperties=font_prop,
                fontsize=label_size, rotation=75, color=color)
-    plt.yticks(range(df.shape[1]), df.columns,
+    plt.yticks(range(df.shape[1]), df.select_dtypes(include=['float64', 'int64']).columns,
                fontproperties=font_prop, fontsize=label_size, color=color)
     cb = plt.colorbar()
     cb.ax.tick_params(labelsize=label_size, labelcolor=color, color=color)
