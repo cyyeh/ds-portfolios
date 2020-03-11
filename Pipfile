@@ -12,6 +12,7 @@ pandas = "*"
 numpy = "*"
 matplotlib = "*"
 dask = "*"
+seaborn = "*"
 
 [requires]
 python_version = "3.6"

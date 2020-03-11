@@ -1,5 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 def _df_date_range_selector(df, date_range_start, date_range_end):
     if date_range_start and date_range_end:
@@ -14,7 +15,7 @@ def draw_line_plot_by_column(
     df, columns=None, font_prop='', color='white',
     label_size=14, title_size=16, fig_size=(12, 8),
     date_range_start=None, date_range_end=None,
-    allow_null=True
+    allow_null=True, hue=None
     ):
     '''
     df: dataframe
@@ -28,6 +29,7 @@ def draw_line_plot_by_column(
     date_range_end: end date excluded
     allow_null: allow any null values in column and will draw the plot by 
                 skipping them
+    hue: seaborn hue
     '''
     if date_range_start or date_range_end:
         df = _df_date_range_selector(df, date_range_start, date_range_end)
@@ -45,7 +47,8 @@ def draw_line_plot_by_column(
           plt.yticks(color=color, fontsize=label_size)
           plt.title(column, fontproperties=font_prop,
                     fontsize=title_size, color=color)
-          plt.plot(x, y)
+          sns.lineplot(x, y, hue=hue)
+          plt.ylabel(column, color=color, fontsize=label_size, fontproperties=font_prop)
           plt.show()
           print()
 
