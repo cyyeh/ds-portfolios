@@ -37,6 +37,9 @@ def draw_line_plot_by_column(
     '''
     if date_range_start or date_range_end:
         df = _df_date_range_selector(df, date_range_start, date_range_end)
+        date_range = pd.date_range(start=date_range_start, end=date_range_end)
+        if len(date_range) != len(df):
+            return
     if columns:
         df = df[columns]
     if hue:
