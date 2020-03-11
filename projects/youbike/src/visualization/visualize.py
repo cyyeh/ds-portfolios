@@ -1,6 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+from pandas.tseries.offsets import DateOffset
 
 from ..data.make_dataset import resample_df
 
