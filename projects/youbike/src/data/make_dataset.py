@@ -243,9 +243,12 @@ def get_youbike_integration_df(youbike_df=None, weather_air_df=None):
     df = (pd.merge(youbike_df, weather_air_df,
                    how='outer', left_index=True,
                    right_index=True, sort=True)
-          .fillna(method='ffill')
-          .fillna(method='bfill')
-          .rename(columns=rename_mapper)
+            .rename(columns=rename_mapper)
           )
+
+    # imputation for weather and air data
+    df[fields_needed[1:]] = df[fields_needed[1:]].fillna(method='ffill')
+    # remove rows with NaN inside the column of 可借車數
+    df = df.dropna()
 
     return df[fields_needed]
