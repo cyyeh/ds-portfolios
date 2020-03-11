@@ -222,6 +222,8 @@ def get_youbike_integration_df(youbike_df=None, weather_air_df=None):
     # - rename columns
     fields_needed = [
         '可借車數',
+        '星期幾',
+        '是否為週末',
         '細懸浮微粒(μg/m^3)',
         '總碳氫化合物(ppm)',
         '懸浮微粒(μg/m^3)',
@@ -240,6 +242,8 @@ def get_youbike_integration_df(youbike_df=None, weather_air_df=None):
 
     rename_mapper = {
         'current_number': '可借車數',
+        'weekday': '星期幾',
+        'is_weekend': '是否為週末'
     }
 
     df = (pd.merge(youbike_df, weather_air_df,
@@ -248,9 +252,19 @@ def get_youbike_integration_df(youbike_df=None, weather_air_df=None):
             .rename(columns=rename_mapper)
           )
 
-    # imputation for weather and air data
     df[fields_needed[1:]] = df[fields_needed[1:]].fillna(method='ffill')
-    # remove rows with NaN inside the column of 可借車數
-    df = df.dropna()
+    df = df.dropna() # remove rows with NaN inside the column of 可借車數
+
+    # weekday mapper
+    weekday_dict = {
+        0.0: 'Mon',
+        1.0: 'Tue',
+        2.0: 'Wed',
+        3.0: 'Thu',
+        4.0: 'Fri',
+        5.0: 'Sat',
+        6.0: 'Sun'
+    }
+    df['星期幾'] = df['星期幾'].apply(lambda weekday: weekday_dict[weekday]).astype('category')
 
     return df[fields_needed]
