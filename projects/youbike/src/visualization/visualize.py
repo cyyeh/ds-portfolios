@@ -145,10 +145,10 @@ def plot_available_youbike_numbers(
     if hue:
         columns += [hue]
 
-    date_range = pd.date_range(start=start_date, end=end_date, closed='left')
+    date_range = pd.date_range(start=start_date, end=end_date)
     for date in date_range:
         start_date = date
-        end_date = date + DateOffset(days=days_per_period)
+        end_date = date + DateOffset(days=days_per_period-1)
 
         start_date = str(start_date).split(' ')[0]
         end_date = str(end_date).split(' ')[0]
