@@ -2,6 +2,10 @@ import pandas as pd
 import dask.dataframe as dd
 
 
+def resample_df(df, freq=None):
+    return df.resample(freq).mean() if freq else df
+
+
 def _add_date_column(df, date_str):
     date_column = []
     date = pd.to_datetime(date_str)

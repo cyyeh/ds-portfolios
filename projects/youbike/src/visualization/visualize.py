@@ -2,10 +2,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 
-def resample_weather_air_df(df, freq=None):
-    return df.resample(freq).mean() if freq else df
-
-
 def draw_line_plot_by_column(df, font_prop=None):
     for column in df.columns:
         plt.figure(figsize=(12, 8))
