@@ -39,7 +39,7 @@ def draw_line_plot_by_column(
     if columns:
         df = df[columns]
     if hue:
-        hue = df[hue]
+        df_hue = df[hue]
 
     df = df.select_dtypes(include=['float64', 'int64'])
     for column in df.columns:
@@ -53,7 +53,7 @@ def draw_line_plot_by_column(
             plt.title(column, fontproperties=font_prop,
                     fontsize=title_size, color=color)
             if hue:
-                sns.lineplot(x, y, hue=hue)
+                sns.lineplot(x, y, hue=df_hue)
             else:
                 sns.lineplot(x, y)
             plt.ylabel(column, color=color, fontsize=label_size, fontproperties=font_prop)
@@ -143,7 +143,7 @@ def plot_available_youbike_numbers(
         hue = None
     if hue:
         columns += [hue]
-        
+
     date_range = pd.date_range(start=start_date, end=end_date)
     for date in date_range:
         start_date = date
