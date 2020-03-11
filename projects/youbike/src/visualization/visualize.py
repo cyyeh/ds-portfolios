@@ -13,7 +13,8 @@ def _df_date_range_selector(df, date_range_start, date_range_end):
 def draw_line_plot_by_column(
     df, columns=None, font_prop='', color='white',
     label_size=14, title_size=16, fig_size=(12, 8),
-    date_range_start=None, date_range_end=None
+    date_range_start=None, date_range_end=None,
+    allow_null=True
     ):
     '''
     df: dataframe
@@ -25,6 +26,8 @@ def draw_line_plot_by_column(
     fig_size: matplotlib figure size
     date_range_start: start date included
     date_range_end: end date excluded
+    allow_null: allow any null values in column and will draw the plot by 
+                skipping them
     '''
     if date_range_start or date_range_end:
         df = _df_date_range_selector(df, date_range_start, date_range_end)
@@ -36,7 +39,7 @@ def draw_line_plot_by_column(
         x = df.index
         y = df[column]
         # make sure no NaN in column
-        if not y.isnull().values.sum():
+        if allow_null or not y.isnull().values.sum():
           plt.figure(figsize=fig_size)
           plt.xticks(color=color, fontsize=label_size)
           plt.yticks(color=color, fontsize=label_size)
