@@ -44,8 +44,8 @@ def draw_line_plot_by_column(
 
     df = df.select_dtypes(include=['float64', 'int64'])
     for column in df.columns:
-        x = df.index[:-1]
-        y = df[column][:-1]
+        x = df.index
+        y = df[column]
         if allow_null or not y.isnull().values.sum():
             plt.figure(figsize=fig_size)
             plt.xticks(color=color, fontsize=label_size)
@@ -53,7 +53,7 @@ def draw_line_plot_by_column(
             plt.title(column, fontproperties=font_prop,
                     fontsize=title_size, color=color)
             if hue:
-                sns.lineplot(x, y, hue=df_hue)
+                sns.lineplot(x, y[:-1], hue=df_hue) # hack for y value
                 plt.legend(loc='upper right', prop=font_prop, fontsize=label_size)
             else:
                 sns.lineplot(x, y)
