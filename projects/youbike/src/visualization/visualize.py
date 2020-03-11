@@ -2,6 +2,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+from ..data.make_dataset import resample_df
+
 def _df_date_range_selector(df, date_range_start, date_range_end):
     if date_range_start and date_range_end:
         mask = (df.index >= date_range_start) & (df.index <= date_range_end)
@@ -115,3 +117,32 @@ def plot_youbike_mean_available_number(
     plt.xticks(color=color, fontsize=label_size)
     plt.yticks(color=color, fontsize=label_size)
     plt.plot(x, y)
+
+def plot_available_youbike_numbers(
+    df, start_date='1/1/2018', end_date='6/15/2018',
+    days_per_period=7, freq=None, font_prop=''
+    ):
+    '''
+    df: dataframe
+    start_date: line plot start date
+    end_date: line plot end date
+    days_per_period: days per figure
+    freq: resample frequency for dataframe
+    font_prop: fontproperties for matplotlib
+    '''
+    date_range = pd.date_range(start=start_date, end=end_date)
+    for date in date_range:
+        start_date = date
+        end_date = date + DateOffset(days=days_per_period)
+
+        start_date = str(start_date).split(' ')[0]
+        end_date = str(end_date).split(' ')[0]
+
+        draw_line_plot_by_column(
+            resample_df(df, freq=freq),
+            columns=['可借車數'],
+            font_prop=font_prop, 
+            date_range_start=start_date,
+            date_range_end=end_date,
+            allow_null=False
+        )
