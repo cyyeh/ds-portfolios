@@ -45,15 +45,18 @@ def draw_line_plot_by_column(
         y = df[column]
         # make sure no NaN in column
         if allow_null or not y.isnull().values.sum():
-          plt.figure(figsize=fig_size)
-          plt.xticks(color=color, fontsize=label_size)
-          plt.yticks(color=color, fontsize=label_size)
-          plt.title(column, fontproperties=font_prop,
+            plt.figure(figsize=fig_size)
+            plt.xticks(color=color, fontsize=label_size)
+            plt.yticks(color=color, fontsize=label_size)
+            plt.title(column, fontproperties=font_prop,
                     fontsize=title_size, color=color)
-          sns.lineplot(x, y, hue=hue, data=df)
-          plt.ylabel(column, color=color, fontsize=label_size, fontproperties=font_prop)
-          plt.show()
-          print()
+            if hue:
+                sns.lineplot(x, y, hue=df[hue])
+            else:
+                sns.lineplot(x, y)
+            plt.ylabel(column, color=color, fontsize=label_size, fontproperties=font_prop)
+            plt.show()
+            print()
 
 
 def draw_heatmap_by_column(
