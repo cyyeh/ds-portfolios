@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 
 def _df_date_range_selector(df, date_range_start, date_range_end):
     if date_range_start and date_range_end:
-        mask = (df.index >= date_range_start) & (df_H.index <= date_range_end)
+        mask = (df.index >= date_range_start) & (df.index <= date_range_end)
     elif date_range_start:
         mask = (df.index >= date_range_start)
     else:
