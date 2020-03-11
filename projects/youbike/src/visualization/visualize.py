@@ -138,6 +138,12 @@ def plot_available_youbike_numbers(
     font_prop: fontproperties for matplotlib
     hue: seaborn hue, if freq is set, then hue will be set to None
     '''
+    columns=['可借車數']
+    if freq:
+        hue = None
+    if hue:
+        columns += [hue]
+        
     date_range = pd.date_range(start=start_date, end=end_date)
     for date in date_range:
         start_date = date
@@ -146,12 +152,9 @@ def plot_available_youbike_numbers(
         start_date = str(start_date).split(' ')[0]
         end_date = str(end_date).split(' ')[0]
 
-        if freq:
-            hue = None
-
         draw_line_plot_by_column(
             resample_df(df, freq=freq),
-            columns=['可借車數'],
+            columns=columns,
             font_prop=font_prop, 
             date_range_start=start_date,
             date_range_end=end_date,
