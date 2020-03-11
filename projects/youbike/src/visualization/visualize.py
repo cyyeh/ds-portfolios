@@ -37,9 +37,11 @@ def draw_line_plot_by_column(
     '''
     if date_range_start or date_range_end:
         df = _df_date_range_selector(df, date_range_start, date_range_end)
+        # make sure all days exist in df selected from date_range_selector
         date_range = pd.date_range(start=date_range_start, end=date_range_end)
-        if len(date_range) != len(df):
-            return
+        df_D = resample_df(df, freq='D')
+        if len(date_range) != len(df_D):
+          return
     if columns:
         df = df[columns]
     if hue:
@@ -49,7 +51,6 @@ def draw_line_plot_by_column(
     for column in df.columns:
         x = df.index
         y = df[column]
-        # make sure no NaN in column
         if allow_null or not y.isnull().values.sum():
             plt.figure(figsize=fig_size)
             plt.xticks(color=color, fontsize=label_size)
@@ -145,7 +146,7 @@ def plot_available_youbike_numbers(
     start_date: line plot start date
     end_date: line plot end date
     days_per_period: days per figure
-    freq: resample frequency for dataframe
+    freq: resample frequency for dataframe: H, D
     font_prop: fontproperties for matplotlib
     hue: seaborn hue, if freq is set, then hue will be set to None
     '''
@@ -155,7 +156,7 @@ def plot_available_youbike_numbers(
     if hue:
         columns += [hue]
 
-    date_range = pd.date_range(start=start_date, end=end_date)
+    date_range = pd.date_range(start=start_date, end=end_date, freq=f"{days_per_period}D")
     for date in date_range:
         start_date = date
         end_date = date + DateOffset(days=days_per_period-1)
@@ -164,7 +165,7 @@ def plot_available_youbike_numbers(
         end_date = str(end_date).split(' ')[0]
 
         draw_line_plot_by_column(
-            resample_df(df, freq=freq),
+            make_dataset.resample_df(df, freq=freq),
             columns=columns,
             font_prop=font_prop, 
             date_range_start=start_date,
