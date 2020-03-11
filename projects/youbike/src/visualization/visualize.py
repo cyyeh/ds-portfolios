@@ -14,6 +14,7 @@ def _df_date_range_selector(df, date_range_start, date_range_end):
         mask = (df.index <= date_range_end)
     return df.loc[mask]    
 
+
 def draw_line_plot_by_column(
     df, columns=None, font_prop='', color='white',
     label_size=14, title_size=16, fig_size=(12, 8),
