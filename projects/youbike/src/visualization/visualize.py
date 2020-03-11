@@ -61,12 +61,13 @@ def draw_heatmap_by_column(
     '''
     if date_range_start or date_range_end:
         df = _df_date_range_selector(df, date_range_start, date_range_end)
-
+    df = df.select_dtypes(include=['float64', 'int64'])
+    
     f = plt.figure(figsize=fig_size)
     plt.matshow(df.corr(), fignum=f.number)
-    plt.xticks(range(df.shape[1]), df.select_dtypes(include=['float64', 'int64']).columns, fontproperties=font_prop,
+    plt.xticks(range(df.shape[1]), df.columns, fontproperties=font_prop,
                fontsize=label_size, rotation=75, color=color)
-    plt.yticks(range(df.shape[1]), df.select_dtypes(include=['float64', 'int64']).columns,
+    plt.yticks(range(df.shape[1]), df.columns,
                fontproperties=font_prop, fontsize=label_size, color=color)
     cb = plt.colorbar()
     cb.ax.tick_params(labelsize=label_size, labelcolor=color, color=color)
