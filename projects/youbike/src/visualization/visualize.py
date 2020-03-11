@@ -31,16 +31,18 @@ def draw_line_plot_by_column(
     if columns:
         df = df[columns]
     for column in df.columns:
-        plt.figure(figsize=fig_size)
         x = df.index
         y = df[column]
-        plt.xticks(color=color, fontsize=label_size)
-        plt.yticks(color=color, fontsize=label_size)
-        plt.title(column, fontproperties=font_prop,
-                  fontsize=title_size, color=color)
-        plt.plot(x, y)
-        plt.show()
-        print()
+        # make sure no NaN in column
+        if not y.isnull().values.sum():
+          plt.figure(figsize=fig_size)
+          plt.xticks(color=color, fontsize=label_size)
+          plt.yticks(color=color, fontsize=label_size)
+          plt.title(column, fontproperties=font_prop,
+                    fontsize=title_size, color=color)
+          plt.plot(x, y)
+          plt.show()
+          print()
 
 
 def draw_heatmap_by_column(
