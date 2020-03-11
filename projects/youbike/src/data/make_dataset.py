@@ -219,9 +219,7 @@ def get_youbike_integration_df(youbike_df=None, weather_air_df=None):
     # - filter out redundant fields
     # - rename columns
     fields_needed = [
-        '總車數',
         '可借車數',
-        '空位車數',
         '細懸浮微粒(μg/m^3)',
         '總碳氫化合物(ppm)',
         '懸浮微粒(μg/m^3)',
@@ -239,9 +237,7 @@ def get_youbike_integration_df(youbike_df=None, weather_air_df=None):
     ]
 
     rename_mapper = {
-        'total_number': '總車數',
         'current_number': '可借車數',
-        'vacancy_number': '空位車數'
     }
 
     df = (pd.merge(youbike_df, weather_air_df,
