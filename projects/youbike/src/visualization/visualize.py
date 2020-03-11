@@ -121,7 +121,8 @@ def plot_youbike_mean_available_number(
 
 def plot_available_youbike_numbers(
     df, start_date='1/1/2018', end_date='6/15/2018',
-    days_per_period=7, freq=None, font_prop=''
+    days_per_period=7, freq=None, font_prop='',
+    hue=None
     ):
     '''
     df: dataframe
@@ -130,6 +131,7 @@ def plot_available_youbike_numbers(
     days_per_period: days per figure
     freq: resample frequency for dataframe
     font_prop: fontproperties for matplotlib
+    hue: seaborn hue
     '''
     date_range = pd.date_range(start=start_date, end=end_date)
     for date in date_range:
@@ -146,4 +148,5 @@ def plot_available_youbike_numbers(
             date_range_start=start_date,
             date_range_end=end_date,
             allow_null=False
+            hue=hue
         )
