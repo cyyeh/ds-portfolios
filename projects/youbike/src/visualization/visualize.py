@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 
-def draw_line_plot_by_column(df, font_prop=None):
+def draw_line_plot_by_column(df, font_prop=''):
     for column in df.columns:
         plt.figure(figsize=(12, 8))
         x = df.index
@@ -15,7 +15,7 @@ def draw_line_plot_by_column(df, font_prop=None):
         print()
 
 
-def draw_heatmap_by_column(df, font_prop=None):
+def draw_heatmap_by_column(df, font_prop=''):
     f = plt.figure(figsize=(12, 12))
     plt.matshow(df.corr(), fignum=f.number)
     plt.xticks(range(df.shape[1]), df.columns, fontproperties=font_prop,
