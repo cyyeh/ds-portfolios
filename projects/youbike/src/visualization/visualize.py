@@ -11,12 +11,13 @@ def _df_date_range_selector(df, date_range_start, date_range_end):
     return df.loc[mask]    
 
 def draw_line_plot_by_column(
-    df, font_prop='', color='white',
+    df, columns=None, font_prop='', color='white',
     label_size=14, title_size=16, fig_size=(12, 8),
     date_range_start=None, date_range_end=None
     ):
     '''
     df: dataframe
+    columns: draw specific columns, should be a list
     font_prop: fontproperties for matplotlib
     color: color for label, title
     label_size: label font size
@@ -27,7 +28,8 @@ def draw_line_plot_by_column(
     '''
     if date_range_start or date_range_end:
         df = _df_date_range_selector(df, date_range_start, date_range_end)
-
+    if columns:
+        df = df[columns]
     for column in df.columns:
         plt.figure(figsize=fig_size)
         x = df.index
