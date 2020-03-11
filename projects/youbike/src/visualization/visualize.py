@@ -44,7 +44,7 @@ def draw_line_plot_by_column(
 
     df = df.select_dtypes(include=['float64', 'int64'])
     for column in df.columns:
-        x = df.index
+        x = df.index[:-1]
         y = df[column][:-1]
         if allow_null or not y.isnull().values.sum():
             plt.figure(figsize=fig_size)
