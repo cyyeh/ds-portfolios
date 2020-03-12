@@ -256,6 +256,24 @@ def draw_available_youbike_numbers_per_weekday(
                             mode='lines+markers',
                             name=column))
         # Edit the layout
+        fig.update_layout(
+            updatemenus=[
+                dict(
+                    type="buttons",
+                    direction="right",
+                    active=0,
+                    x=1,
+                    buttons=list([
+                        dict(label="Show All",
+                            method="restyle",
+                            args=[{"visible": [True]}]),
+                        dict(label="Hide All",
+                            method="restyle",
+                            args=[{"visible": [False]}])
+                    ]),
+                )
+            ])
+
         fig.update_layout(title=f"Youbike Available Number per {weekday} from 2018-01-01 to 2018-06-15",
                             xaxis_title='Time',
                             yaxis_title='Youbike Available Number')
