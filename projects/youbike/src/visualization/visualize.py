@@ -257,6 +257,9 @@ def draw_available_youbike_numbers_per_weekday(
                             name=column))
         # Edit the layout
         fig.update_layout(
+            yaxis=dict(
+                range=[0, 90]
+            ),
             updatemenus=[
                 dict(
                     type="buttons",
