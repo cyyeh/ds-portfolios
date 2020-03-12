@@ -209,6 +209,7 @@ def get_available_youbike_numbers_dfs_per_weekday(
         index_selectors.append(
             time(hour=time_hour, minute=time_min, second=time_sec)
         )
+    thresh = len(index_selectors) * 0.9
 
     for weekday in weekdays:
         df_weekday = df[df['星期幾'] == weekday]
@@ -232,8 +233,10 @@ def get_available_youbike_numbers_dfs_per_weekday(
             df_new = pd.concat([df_new, df_], axis=1)
 
         df_new = (df_new.loc[index_selectors]
-                  .fillna(method='ffill')
-                  .fillna(method='bfill'))
+                        .dropna(axis=1, thresh=thresh)
+                        .fillna(method='ffill')
+                        .fillna(method='bfill')
+                  )
         dfs_dict[weekday] = df_new
 
     return dfs_dict
