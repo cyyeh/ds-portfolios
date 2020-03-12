@@ -269,7 +269,7 @@ def draw_available_youbike_numbers_per_weekday(
                             args=[{"visible": [True]}]),
                         dict(label="Hide All",
                             method="restyle",
-                            args=[{"visible": [False]}])
+                            args=[{"visible": ['legendonly']}])
                     ]),
                 )
             ])
