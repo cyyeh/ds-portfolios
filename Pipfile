@@ -13,6 +13,8 @@ numpy = "*"
 matplotlib = "*"
 dask = "*"
 seaborn = "*"
+datetimerange = "*"
+plotly = "*"
 
 [requires]
 python_version = "3.6"

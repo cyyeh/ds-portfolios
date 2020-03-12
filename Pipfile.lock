@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "88509e3a57491bc65f38266216949a4a223f28dad65482398effee7242dfe319"
+            "sha256": "15678b646910121202c1375e9bfea5dd65ea82bb5c69f672c0604165c033ebc4"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -44,6 +44,14 @@
             ],
             "index": "pypi",
             "version": "==2.12.0"
+        },
+        "datetimerange": {
+            "hashes": [
+                "sha256:3c5587ef3634a04093b49a456f8b7a55e565f9d790ba2d633fb60e4459ed9391",
+                "sha256:839ce3955423eca222c0500457ae47e416cd65aa2cd65d2a03df39683863514f"
+            ],
+            "index": "pypi",
+            "version": "==0.6.1"
         },
         "idna": {
             "hashes": [
@@ -114,6 +122,13 @@
             "index": "pypi",
             "version": "==3.2.0"
         },
+        "mbstrdecoder": {
+            "hashes": [
+                "sha256:651c5aa74c09eb3d049771471bd4e2c91ed637663b08e037ff9f30315f4680d7",
+                "sha256:a28e73ad38c49ced4e80778e1f1fb491291b92460285e5c271d8925495aa8b5f"
+            ],
+            "version": "==0.8.4"
+        },
         "numpy": {
             "hashes": [
                 "sha256:1786a08236f2c92ae0e70423c45e1e62788ed33028f94ca99c4df03f5be6b3c6",
@@ -161,6 +176,14 @@
             "index": "pypi",
             "version": "==1.0.1"
         },
+        "plotly": {
+            "hashes": [
+                "sha256:b6b1e13e7f04dc9a9f714ab8ecc63d00a4207a736c9835912c96b6884002be1e",
+                "sha256:e6eab2b6010921f5fb998860125b90748e581de66ebc6107b686829417d98fc4"
+            ],
+            "index": "pypi",
+            "version": "==4.5.4"
+        },
         "pyparsing": {
             "hashes": [
                 "sha256:4c830582a84fb022400b85429791bc551f1f4871c33f23e44f353119e92f969f",
@@ -189,6 +212,12 @@
             ],
             "index": "pypi",
             "version": "==2.16.0"
+        },
+        "retrying": {
+            "hashes": [
+                "sha256:08c039560a6da2fe4f2c426d0766e284d3b736e355f8dd24b37367b0bb41973b"
+            ],
+            "version": "==1.3.3"
         },
         "scipy": {
             "hashes": [
@@ -230,6 +259,16 @@
                 "sha256:8f3cd2e254d8f793e7f3d6d9df77b92252b52637291d0f0da013c76ea2724b6c"
             ],
             "version": "==1.14.0"
+        },
+        "typepy": {
+            "extras": [
+                "datetime"
+            ],
+            "hashes": [
+                "sha256:116d4cd26a973d4cf453e94990ab14a2d148757ced47a7b1547fcf8301c58f78",
+                "sha256:1cc1c8a96e4e78f9487b190627dec15ca579dbf5c929ce8035878b0f6ba31f40"
+            ],
+            "version": "==0.6.6"
         },
         "urllib3": {
             "hashes": [

@@ -1,6 +1,10 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+from datetimerange import DateTimeRange
+from dateutil.relativedelta import relativedelta
+from datetime import time
+import plotly.graph_objects as go
 from pandas.tseries.offsets import DateOffset
 
 from ..data.make_dataset import resample_df
@@ -169,3 +173,90 @@ def plot_available_youbike_numbers(
             hue=hue,
             grid=grid
         )
+
+
+def get_available_youbike_numbers_dfs_per_weekday(
+    df, weekdays='all'
+):
+    '''
+    df: dataframe
+    weekdays: all or a list of weekdays, ex: ['Mon', 'Tue']
+    '''
+    key_column = '可借車數'
+    time_range = DateTimeRange("00:00:00", "23:55:00")
+    index_selectors = []
+    dfs_dict = {}
+    start_date = '2018-01-01'
+    end_date = '2018-06-15'
+    start_date_dict = {
+        'Mon': '2018-01-01',
+        'Tue': '2018-01-02',
+        'Wed': '2018-01-03',
+        'Thu': '2018-01-04',
+        'Fri': '2018-01-05',
+        'Sat': '2018-01-06',
+        'Sun': '2018-01-07'
+    }
+
+    if weekdays == 'all':
+        weekdays = start_date_dict.keys()
+
+    for value in time_range.range(relativedelta(minutes=+5)):
+        time_str_list = str(value).split(' ')[-1].split(':') # XX:XX:XX
+        time_hour = int(time_str_list[0])
+        time_min = int(time_str_list[1])
+        time_sec = int(time_str_list[2])
+        index_selectors.append(
+            time(hour=time_hour, minute=time_min, second=time_sec)
+        )
+
+    for weekday in weekdays:
+        df_weekday = df[df['星期幾'] == weekday]
+        df_weekday = df_weekday[[key_column]]
+
+        date_range = pd.date_range(start=start_date_dict[weekday], end=end_date, freq="7D")
+        df_new = pd.DataFrame()
+
+        for date in date_range:
+          start_date_ = date
+          end_date_ = date + DateOffset(days=1)
+          mask = (df_weekday.index > start_date_) & (df_weekday.index <= end_date_)
+
+          df_ = df_weekday.loc[mask]
+          df_ = df_.rename(columns={key_column: str(start_date_.date())})
+          df_.index = df_.index.time
+
+          if df_new.empty:
+            df_new = df_
+          else:
+            df_new = pd.concat([df_new, df_], axis=1)
+
+        df_new = (df_new.loc[index_selectors]
+                  .fillna(method='ffill')
+                  .fillna(method='bfill'))
+        dfs_dict[weekday] = df_new
+
+    return dfs_dict
+
+
+def draw_available_youbike_numbers_per_weekday(
+    df, weekdays='all', mode='lines+markers'
+):
+    '''
+    df: dataframe
+    weekdays: all or a list of weekdays, ex: ['Mon', 'Tue']
+    mode: plotly mode
+    '''
+    dfs_dict = get_available_youbike_numbers_dfs_per_weekday(df, weekdays=weekdays)
+
+    for weekday, df_ in dfs_dict.items():
+        fig = go.Figure()
+        for column in df_.columns:
+            fig.add_trace(go.Scatter(x=df_.index, y=df_[column],
+                            mode='lines+markers',
+                            name=column))
+        # Edit the layout
+        fig.update_layout(title=f"Youbike Available Number per {weekday} from 2018-01-01 to 2018-06-15",
+                            xaxis_title='Time',
+                            yaxis_title='Youbike Available Number')
+        fig.show()
